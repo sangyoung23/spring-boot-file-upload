@@ -1,0 +1,43 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.4'
+	id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.react'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	runtimeOnly 'mysql:mysql-connector-java:8.0.33' // MySQL 드라이버
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	implementation 'org.apache.poi:poi:5.2.3'              // 기본 POI (XLS 지원)
+	implementation 'org.apache.poi:poi-ooxml:5.2.3'        // XLSX 지원
+	implementation 'org.apache.poi:poi-ooxml-schemas:4.1.2' // XLSX 복잡한 스키마 지원
+	implementation 'org.apache.poi:poi-scratchpad:5.2.3'   // 추가 기능 (예: 비밀번호 보호된 문서)
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
